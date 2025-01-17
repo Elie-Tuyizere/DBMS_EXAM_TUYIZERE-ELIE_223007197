@@ -1,0 +1,308 @@
+PART A
+Question 1
+
+mysql> use exam;
+Database changed
+mysql> create table Client_master( clientNO int(10), Name varchar(15), Address varchar(15), City varchar(12), State varchar(10), Bal_due int(10));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> insert into Client_master values('10','TUYIZERE', 'Bugesera/Nyamata','Nyamata','7000');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into Client_master values('10','TUYIZERE', 'Bugesera/Nyamata','Nyamata', 'RWANDA','7000');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Client_master values('11','SHUKURUMUNGU', 'Mwumba12','MWUMBA', 'TANZANIA','4500');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Client_master values('12','JAMES', 'BWISIGE','Gicumbi', 'RWANDA','5000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Client_master values('14','DUKUZIMANA', 'Ngoma','HUYE', 'RWANDA','6000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Client_master values('15','KANTARAMA', 'KC_Center','KICUKIRO', 'RWANDA','4000');
+Query OK, 1 row affected (0.00 sec)
+
+Question 2
+
+mysql> select name from client_master where bal_due>5000;
++------------+
+| name       |
++------------+
+| TUYIZERE   |
+| DUKUZIMANA |
++------------+
+2 rows in set (0.00 sec)
+
+
+mysql> update client_master set bal_due='5100' where clientno='12';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> alter table client_master rename Client12;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>( Deptno int(10) primary key; Department_names varchar(16), manager_id int(10),Dep_location varchar(15), department_id int(10))
+
+Part- B
+Question 6
+-------------------------------------------------------
+mysql> create table DEPARTMENT();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table DEPARTMENT( Deptno int(10) primary key; Department_names varchar(16), manager_id int(10),Dep_location varchar(15), department_id int(10));
+
+mysql> create table DEPARTMENT( Deptno int(10) primary key, Department_names varchar(16), manager_id int(10),Dep_location varchar(15), department_id int(10));
+Query OK, 0 rows affected, 3 warnings (0.01 sec)
+
+mysql> create table EMPLOYEES(Employee_id int(10) primary key);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> alter table employees add column Employee_name varchar(12), add column Hired_date date, add Job_title varchar(10), add department_id int(10);
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+b)
+
+
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'exam.employee' doesn't exist
+mysql> desc employees;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Employee_id   | int         | NO   | PRI | NULL    |       |
+| Employee_name | varchar(12) | YES  |     | NULL    |       |
+| Hired_date    | date        | YES  |     | NULL    |       |
+| Job_title     | varchar(10) | YES  |     | NULL    |       |
+| department_id | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+c)
+
+mysql> alter table employees add foreign key(department_id) references department(department_id);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> select employee_name, department_names from employees left outer join department on employees.department_id=department.department_id;
++---------------+------------------+
+| employee_name | department_names |
++---------------+------------------+
+| Samuel ISHIM  | HRM              |
+| UWERA ANGE    | ACCOUNTING       |
+| TUYIZERE Eli  | NULL             |
+| JAMES         | NULL             |
+| UMWARI        | NULL             |
++---------------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> select employee_name, department_names from employees right outer join department on employees.department_id=department.department_id;
++---------------+------------------+
+| employee_name | department_names |
++---------------+------------------+
+| UWERA ANGE    | ACCOUNTING       |
+| NULL          | BIT              |
+| Samuel ISHIM  | HRM              |
+| NULL          | Supervisor       |
+| NULL          | MARKETING        |
++---------------+------------------+
+5 rows in set (0.00 sec)
+
+QUestion 7
+1. 
+mysql> create table STUDENT (studentid int(5), fullnames varchar(25), gender Varchar(6),age int(2),department varchar(30));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+4.
+mysql> insert into student values('10','TUYIZERE Elie', 'M','22', 'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('11','UWERA Aline', 'F','21', 'acc');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('11','UWERA Aline', 'F','20', 'IT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('12','ANGE USANASE', 'F','20', 'IT');
+Query OK, 1 row affected (0.00 sec)
+mysql> insert into student values('16','Eric HABIRI', 'M','25', 'ACC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('17','EMMY SAM', 'M','19', 'ACC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from  Student;
++-----------+---------------+--------+------+------------+
+| studentid | fullnames     | gender | age  | department |
++-----------+---------------+--------+------+------------+
+|        10 | TUYIZERE Elie | M      |   22 | BIT        |
+|        11 | UWERA Aline   | F      |   21 | acc        |
+|        11 | UWERA Aline   | F      |   20 | IT         |
+|        12 | ANGE USANASE  | F      |   20 | IT         |
++-----------+---------------+--------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from  Student where gender='F';
++-----------+--------------+--------+------+------------+
+| studentid | fullnames    | gender | age  | department |
++-----------+--------------+--------+------+------------+
+|        11 | UWERA Aline  | F      |   21 | acc        |
+|        11 | UWERA Aline  | F      |   20 | IT         |
+|        12 | ANGE USANASE | F      |   20 | IT         |
++-----------+--------------+--------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  Student where gender='M';
++-----------+---------------+--------+------+------------+
+| studentid | fullnames     | gender | age  | department |
++-----------+---------------+--------+------+------------+
+|        10 | TUYIZERE Elie | M      |   22 | BIT        |
++-----------+---------------+--------+------+------------+
+1 row in set (0.00 sec)
+
+PART C
+Question 8
+
+mysql> create table employeess( employee_id int, First_name varchar(12), Last_names varchar(11), email Varchar(10),Phone_number Varchar(13), Hire_date date,job_ID int, salary int(7),commision_Pct varchar(10),Manager_id int, Department_Id int);
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> insert into employeess values('1','TUYIZERE','Elie', 'elie@gmail','0790983672','2000-01-12','10','20000','carri','100','50');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employeess values('2','EMMY','Eric', 'eric@gmail','0790983622','2002-01-12','20','4500','fsarri','200','60');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employeess values('3','JAMES','ASSIMWE', 'sam@gmail','0788383622','2003-01-12','30','4800','fsarri','300','70');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employeess values('4','Dative','Emile', 'emile@gmail','0788383622','2005-01-12','40','5000','fdrri','400','80');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employeess values('5','CYUSA','Emile', 'cyusa@gmail','0788000002','2005-05-12','50','4800','fdrri','500','90');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+mysql>
+mysql> insert into employeess values('7','MBERA','AUSTIN', 'Austin@gmail','0788000002','2005-05-12','50','2500','fdrri','500','90');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+(a)
+
+
+mysql> select employee_id,First_name, last_names,salary from employeess;
++-------------+------------+------------+--------+
+| employee_id | First_name | last_names | salary |
++-------------+------------+------------+--------+
+|           1 | TUYIZERE   | Elie       |  20000 |
+|           2 | EMMY       | Eric       |   4500 |
+|           3 | JAMES      | ASSIMWE    |   4800 |
+|           4 | Dative     | Emile      |   5000 |
+|           5 | CYUSA      | Emile      |   4800 |
+|           6 | SAM        | RUSANGA    |   4500 |
+|           7 | MBERA      | AUSTIN     |   2500 |
++-------------+------------+------------+--------+
+7 rows in set (0.00 sec)
+
+(b)
+mysql> select *from employeess where manager_id<100;
++-------------+------------+------------+------------+--------------+------------+--------+--------+---------------+------------+---------------+
+| employee_id | First_name | Last_names | email      | Phone_number | Hire_date  | job_ID | salary | commision_Pct | Manager_id | Department_Id |
++-------------+------------+------------+------------+--------------+------------+--------+--------+---------------+------------+---------------+
+|           6 | SAM        | RUSANGA    | rusanga@gm | 07844300002  | 2008-05-12 |     60 |   4500 | fdsi          |         60 |            90 |
++-------------+------------+------------+------------+--------------+------------+--------+--------+---------------+------------+---------------+
+1 row in set (0.00 sec)
+
+(c)
+mysql> select First_name, Last_names from employeess where salary>=480;
++------------+------------+
+| First_name | Last_names |
++------------+------------+
+| TUYIZERE   | Elie       |
+| EMMY       | Eric       |
+| JAMES      | ASSIMWE    |
+| Dative     | Emile      |
+| CYUSA      | Emile      |
+| SAM        | RUSANGA    |
++------------+------------+
+6 rows in set (0.00 sec)
+
+(d)
+mysql> select First_name, Last_names from employeess where last_names='AUSTIN';
++------------+------------+
+| First_name | Last_names |
++------------+------------+
+| MBERA      | AUSTIN     |
++------------+------------+
+1 row in set (0.00 sec)
+
+(e)
+
+mysql> select First_name, Last_names from employeess where department_id='60' Or (department_id='70' or department_id='80');
++------------+------------+
+| First_name | Last_names |
++------------+------------+
+| EMMY       | Eric       |
+| JAMES      | ASSIMWE    |
+| Dative     | Emile      |
++------------+------------+
+3 rows in set (0.00 sec)
+
+Question 10
+
+(a)
+mysql> create  table SALES(SalesNo int, salesname varchar(19), Branch varchar(10), salesamount int, DOB date);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into sales values('2','James','RUHUHA', '10000','07844300002','2021-dec-09','60');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into sales values('2','James','RUHUHA', '10000','2021-dec-09');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values('3','ERIC','KICUKIRO', '13000','2021-aprl-09');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values('4','EMILE','KICUKIRO', '11000','2021-aprl-10');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values('5','ANITHA','NYANZA', '11000','2020-aprl-12');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values('6','SAMUEL','NYANZA', '12000','2020-aprl-12');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+(b)
+mysql> select sum(salesamount) from sales;
++------------------+
+| sum(salesamount) |
++------------------+
+|            57000 |
++------------------+
+1 row in set (0.00 sec)
+
+(c)
+
+mysql> select avg(salesamount) from sales;
++------------------+
+| avg(salesamount) |
++------------------+
+|       11400.0000 |
++------------------+
+1 row in set (0.00 sec)
+
+(d)
+
+mysql> select salesname,DOB from sales where DOB like '%dec%';
+Empty set (0.00 sec)
+
+(e)
+
+mysql> select salesname, DOB from sales order by salesname;
++-----------+------------+
+| salesname | DOB        |
++-----------+------------+
+| ANITHA    | 0000-00-00 |
+| EMILE     | 0000-00-00 |
+| ERIC      | 0000-00-00 |
+| James     | 0000-00-00 |
+| SAMUEL    | 0000-00-00 |
++-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
