@@ -247,24 +247,24 @@ mysql> select First_name, Last_names from employeess where department_id='60' Or
 Question 10
 
 (a)
-mysql> create  table SALES(SalesNo int, salesname varchar(19), Branch varchar(10), salesamount int, DOB date);
+mysql> create  table SALES(SalesNo int, salesname varchar(19), Branch varchar(10), salesamount int, DOB Varchar(15));
 Query OK, 0 rows affected (0.03 sec)
 
-mysql> insert into sales values('2','James','RUHUHA', '10000','07844300002','2021-dec-09','60');
+mysql> insert into sales values('2','James','RUHUHA', '10000','07844300002','21-dec-09','60');
 ERROR 1136 (21S01): Column count doesn't match value count at row 1
-mysql> insert into sales values('2','James','RUHUHA', '10000','2021-dec-09');
+mysql> insert into sales values('2','James','RUHUHA', '10000','21-dec-09');
 Query OK, 1 row affected, 1 warning (0.00 sec)
 
-mysql> insert into sales values('3','ERIC','KICUKIRO', '13000','2021-aprl-09');
+mysql> insert into sales values('3','ERIC','KICUKIRO', '13000','21-aprl-09');
 Query OK, 1 row affected, 1 warning (0.00 sec)
 
-mysql> insert into sales values('4','EMILE','KICUKIRO', '11000','2021-aprl-10');
+mysql> insert into sales values('4','EMILE','KICUKIRO', '11000','21-aprl-10');
 Query OK, 1 row affected, 1 warning (0.00 sec)
 
-mysql> insert into sales values('5','ANITHA','NYANZA', '11000','2020-aprl-12');
+mysql> insert into sales values('5','ANITHA','NYANZA', '11000','20-aprl-12');
 Query OK, 1 row affected, 1 warning (0.00 sec)
 
-mysql> insert into sales values('6','SAMUEL','NYANZA', '12000','2020-aprl-12');
+mysql> insert into sales values('6','SAMUEL','NYANZA', '12000','20-aprl-12');
 Query OK, 1 row affected, 1 warning (0.01 sec)
 
 (b)
@@ -289,20 +289,24 @@ mysql> select avg(salesamount) from sales;
 (d)
 
 mysql> select salesname,DOB from sales where DOB like '%dec%';
-Empty set (0.00 sec)
++-----------+-----------+
+| salesname | DOB       |
++-----------+-----------+
+| James     | 21-dec-09 |
++-----------+-----------+
 
 (e)
 
 mysql> select salesname, DOB from sales order by salesname;
-+-----------+------------+
-| salesname | DOB        |
-+-----------+------------+
-| ANITHA    | 0000-00-00 |
-| EMILE     | 0000-00-00 |
-| ERIC      | 0000-00-00 |
-| James     | 0000-00-00 |
-| SAMUEL    | 0000-00-00 |
-+-----------+------------+
++-----------+-----------+
+| salesname | DOB       |
++-----------+-----------+
+| ANITHA    | 20-apr-12 |
+| EMILE     | 21-apr-10 |
+| ERIC      | 21-apr-09 |
+| James     | 21-dec-09 |
+| SAMUEL    | 20-apr-12 |
++-----------+-----------+
 5 rows in set (0.00 sec)
 
 mysql>
